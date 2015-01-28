@@ -16,11 +16,13 @@ def calculTheta (x,y) :
 
 def calculErreurQuadra (x,y,theta) :
 	N = x.shape[0]
-	cumul = 0
-	xT = x.T
-	for i in range(1,N) :
-		tmp = np.dot(xT[i],theta)
-		cumul = (y[i] - tmp)**2
+	xT = x 
+	print x
+	print theta
+	tmp = np.dot(theta,x)
+	tmp = y - tmp
+	print tmp
+	cumul = pow(abs(tmp),2) #pas de matrice carré
 	cumul = cumul/N
 	return cumul
 
