@@ -1,8 +1,10 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 def chargement () :
 	t = np.loadtxt("t.txt")
 	y = np.loadtxt("p.txt")
+	y = np.asmatrix(y).T
 	o = np.ones((1,t.shape[0]))
 	x = np.vstack((t,o))
 	return x,y
@@ -15,18 +17,25 @@ def calculTheta (x,y) :
 	return theta
 
 def calculErreurQuadra (x,y,theta) :
-	N = x.shape[0]
-	xT = x 
-	print x
-	print theta
-	tmp = np.dot(theta,x)
+	N = x.shape[1]
+	print N
+	xT = x.T 
+	#print theta
+	tmp = np.dot(xT,theta)
 	tmp = y - tmp
-	print tmp
-	cumul = pow(abs(tmp),2) #pas de matrice carré
+	#print tmp
+	cumul = pow(np.linalg.norm(tmp),2) #pas de matrice carre
 	cumul = cumul/N
 	return cumul
+
+def dessiner (x,y,theta) :
+	plt.plot(x,y)
+	plt.ylabel('position')
+	plt.xlabel('temps')
+	plt.show()
 
 if __name__ == "__main__" :
 	x,y = chargement()
 	theta = calculTheta(x,y)
 	print calculErreurQuadra (x,y,theta)
+	dessiner(x[0],y,theta)
