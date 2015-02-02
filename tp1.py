@@ -29,7 +29,11 @@ def calculErreurQuadra (x,y,theta) :
 	return cumul
 
 def dessiner (x,y,theta) :
-	plt.plot(x,y)
+	reg = theta[0] * x + theta[1]
+	print reg.T
+	print x
+	plt.plot(x,y,'b.')
+	plt.plot(x,reg.T,'r-')
 	plt.ylabel('position')
 	plt.xlabel('temps')
 	plt.show()
@@ -38,4 +42,5 @@ if __name__ == "__main__" :
 	x,y = chargement()
 	theta = calculTheta(x,y)
 	print calculErreurQuadra (x,y,theta)
+	print theta
 	dessiner(x[0],y,theta)
